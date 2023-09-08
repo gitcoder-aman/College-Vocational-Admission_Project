@@ -4,7 +4,6 @@ import model.ClassModel;
 import model.StudentModel;
 import util.CustomException;
 import util.IdGenerator;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -127,6 +126,7 @@ public class StudentDao {
                 studentList.get(i).setStudentMobile(studentModel.getStudentMobile());
 
                 studentList.get(i).setStudentAadharNo(studentModel.getStudentAadharNo());
+                System.out.println("Update Successfully.");
                 break;
             }
         }
@@ -142,6 +142,7 @@ public class StudentDao {
         for (int i = 0; i < studentList.size(); i++) {
             if (studentId == studentList.get(i).getStudentId()) {
                 studentList.get(i).setLeaveTheStudent(true);
+                System.out.println("Successfully transfer the student.");
                 break;
             }
         }
