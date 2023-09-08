@@ -3,7 +3,8 @@ package model;
 /* @TODO created by Aman Kumar (47) BCA III (2019-22)*/
 
 public class StudentModel {
-    int studentId = 0; //this is roll no
+    int studentId = 0;
+    int rollNo = 0;
     String studentName = "";
     String fatherName = "";
     String motherName = "";
@@ -16,9 +17,11 @@ public class StudentModel {
     int studentAddmissionFee = 0;
 
     String studentAdmissionSlipCode = "";
+    Boolean leaveTheStudent = false;
 
-    public StudentModel(int studentId,String studentName, String fatherName, String motherName, String studentAddress, String studentMobile, String studentCourseSession, String studentClass,String studentAadharNo,Integer studentAddmissionFee,String addmissionSlipCode) {
+    public StudentModel(int studentId,int rollNo,String studentName, String fatherName, String motherName, String studentAddress, String studentMobile, String studentCourseSession, String studentClass,String studentAadharNo,Integer studentAddmissionFee,String addmissionSlipCode) {
         this.studentId = studentId;
+        this.rollNo = rollNo;
         this.studentName = studentName;
         this.fatherName = fatherName;
         this.motherName = motherName;
@@ -32,6 +35,31 @@ public class StudentModel {
 
     }
 
+    //for updating the data
+    public StudentModel(int studentId, String studentName, String fatherName, String motherName, String studentAddress, String studentMobile, String studentAadharNo) {
+        this.studentId = studentId;
+        this.studentName = studentName;
+        this.fatherName = fatherName;
+        this.motherName = motherName;
+        this.studentAddress = studentAddress;
+        this.studentMobile = studentMobile;
+        this.studentAadharNo = studentAadharNo;
+    }
+
+    public Boolean getLeaveTheStudent() {
+        return leaveTheStudent;
+    }
+
+    public void setLeaveTheStudent(Boolean leaveTheStudent) {
+        this.leaveTheStudent = leaveTheStudent;
+    }
+    public int getRollNo() {
+        return rollNo;
+    }
+
+    public void setRollNo(int rollNo) {
+        this.rollNo = rollNo;
+    }
     public String getStudentAdmissionSlipCode() {
         return studentAdmissionSlipCode;
     }

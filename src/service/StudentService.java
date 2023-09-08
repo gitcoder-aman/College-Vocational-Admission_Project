@@ -58,12 +58,23 @@ public class StudentService {
         return studentDao.getListByCourse(courseName);
     }
 
-    public StudentModel updateStudentRecord(int studentRollNo, StudentModel studentModel) throws CustomException {
-        if (studentRollNo == 0) {
-            throw new CustomException("Student Roll No is Empty");
+    public StudentModel updateStudentRecord(StudentModel studentModel) throws CustomException {
+        if (studentModel.getStudentId() == 0) {
+            throw new CustomException("Student Id No is Empty");
         }
         try {
-            return studentDao.updateStudentRecord(studentRollNo, studentModel);
+            return studentDao.updateStudentRecord(studentModel);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void deleteStudentModel(Integer studentId) throws CustomException {
+        if(studentId == 0){
+            throw new CustomException("Student Id no is not Exist.");
+        }
+
+        try {
+            studentDao.deleteStudentRecord(studentId);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
