@@ -19,20 +19,22 @@ public class Main {
 
     public static void main(String[] args) throws CustomException {
 
-        System.out.println("____________Launching the Vocational Management System....______________");
-
         StudentService studentService = StudentService.getInstance();
 
+        authenticationFromDepartment(studentService);
+    }
+
+    private static void allFeatureAccessHere(Boolean isLoggedIn, StudentService studentService) throws CustomException {
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
+        while (isLoggedIn) {
             System.out.println("______________________Vocational Admission Management System__________________");
             System.out.println("1. Addmission Student");
             System.out.println("2. List of All Vocational Student");
             System.out.println("3. List of Student by Course Name");
             System.out.println("4. Update the student Record");
             System.out.println("5. Delete the student Record");
-            System.out.println("6. Exit");
+            System.out.println("6. Log Out");
             System.out.print("Enter your choice: ");
 
             int choice = scanner.nextInt();
@@ -108,12 +110,62 @@ public class Main {
                     studentService.deleteStudentModel(stId);
                     break;
                 case 6:
+                    isLoggedIn = false;
+                    System.out.println("Logout Successfully");
+                    authenticationFromDepartment(studentService);
+                    break;
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+
+    private static void authenticationFromDepartment(StudentService studentService) throws CustomException {
+        Boolean isLoginForWhileLoop = true;
+        do {
+            System.out.println("______________________Vocational Admission Management System__________________");
+            System.out.println("1. Signup the Department");
+            System.out.println("2. Login the Department");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
+
+            Scanner scanner = new Scanner(System.in);
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline character
+            String departmentEmail = "";
+            String departmentPass = "";
+
+            switch (choice) {
+                case 1:
+                    System.out.println("____________________DEPARTMENT_SIGNUP_SYSTEM_____________________");
+                    System.out.println("------------------Enter the Email:--------------");
+                    departmentEmail = scanner.nextLine();
+                    System.out.println("------------------Enter the Password-------------");
+                    departmentPass = scanner.nextLine();
+
+                    studentService.signupDepartment(departmentEmail.toLowerCase(), departmentPass);
+                    break;
+                case 2:
+                    Boolean isLoggedIn = false;
+                    System.out.println("____________________DEPARTMENT_LOGIN_SYSTEM_____________________");
+                    System.out.println("------------------Enter the Email:--------------");
+                    departmentEmail = scanner.nextLine();
+                    System.out.println("------------------Enter the Password-------------");
+                    departmentPass = scanner.nextLine();
+                    isLoggedIn = studentService.loginDepartment(departmentEmail.toLowerCase(), departmentPass);
+                    if (isLoggedIn) {
+                        isLoginForWhileLoop = false;
+                        allFeatureAccessHere(isLoggedIn,studentService);
+                    }
+                    break;
+                case 3:
                     System.out.println("Exiting the system. Goodbye!");
                     System.exit(0);
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
-        }
+
+        } while (isLoginForWhileLoop);
     }
 
     public static void printStudentData(StudentModel studentModel) {

@@ -4,6 +4,7 @@ import model.ClassModel;
 import model.StudentModel;
 import util.CustomException;
 import util.IdGenerator;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -30,6 +31,7 @@ public class StudentDao {
     private ArrayList<String> studentAadharCardForUniqueData = new ArrayList<>();
     private boolean isClassExist = false;
     private ClassModel classModel = new ClassModel();
+    private HashMap<String, String> EmailPassword = new HashMap<>();
 
 
     public StudentModel registerStudent(String studentName, String fatherName, String motherName,
@@ -148,4 +150,25 @@ public class StudentDao {
         }
     }
 
+    public void signupDepartment(String email, String password) throws CustomException {
+        if (EmailPassword.containsKey(email)) {
+            throw new CustomException("This email is already used,please Login!");
+        }
+        EmailPassword.put(email, password);
+        System.out.println("Signup Successfully");
+    }
+
+    public boolean loginDepartment(String email, String password) {
+        if (!EmailPassword.containsKey(email)) {
+            System.out.println("This user does not exist");
+            return false;
+        }
+        if (EmailPassword.get(email).equals(password)) {
+            System.out.println("Login Successfully");
+            return true;
+        } else {
+            System.out.println("Password does not match!");
+        }
+        return false;
+    }
 }

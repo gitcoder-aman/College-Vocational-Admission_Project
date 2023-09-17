@@ -79,5 +79,18 @@ public class StudentService {
             throw new RuntimeException(e);
         }
     }
+    public void signupDepartment(String email,String password) throws CustomException{
+        if(email.isEmpty() || !email.contains("gmail.com")){
+            throw new CustomException("Please enter valid Email Id:");
+        } else if (password.isEmpty() || password.length() < 6) {
+            throw new CustomException("Please Enter a  password which length of greater than 5");
+        }
+        studentDao.signupDepartment(email,password);
+    }
+    public Boolean loginDepartment(String email,String password)  {
+       if( studentDao.loginDepartment(email,password))
+           return true;
+       else return false;
+    }
 
 }
